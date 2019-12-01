@@ -548,7 +548,7 @@ bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWord
 			if (flag != oper) return false;
 		}
 	}
-	//슬래쉬로 나누어진 단어는 따로 검색
+
 	//슬래쉬로 나누어진 단어는 따로 검색
 	if (!slashword.empty()) {
 		for (int i = 0; i < slashword.size(); i++) {
@@ -573,6 +573,31 @@ bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWord
 		}
 	}
 	return true;
+}
+
+
+//유저와 onwer의 관계 판단 , 유저=ownergroup(1), user!=ownergroup(2)
+int MemoManager::checkCorrelation(string userID, string groupName)
+{
+	//user와 owner가 같으면
+	if (userID.compare()) { return 0; }
+
+	//user가 owner는 아니지만 owner와 같은 그룹일때
+	else if () { return 1; }
+
+	//user는 owner가 아니고 owner와 다른 그룹일때
+	else { return 2; }
+}
+
+//검색하려는 메모에 권한이 있는지 검사
+bool MemoManager::checkPermissiones(string userID, string permission)
+{
+	if (permission.compare("000000")) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
 void MemoManager::showMemoList(vector<int> tempMemoNumList)
@@ -606,7 +631,61 @@ void MemoManager::showMemoList(vector<int> tempMemoNumList)
 				else
 					break;
 			} while (true);
-			showSearchedMemo(tempMemoNumList, num);
+
+			string userID;
+			string permission = "111111";
+			string groupName;
+
+			//유저와 owner와 관계를 판단하는 함수
+			int j = 0;
+			switch (checkCorrelation(userID, groupName))
+			{
+			case 0:
+				break;
+			case 1:
+				j = 0;
+				break;
+			case 2:
+				j = 1;
+				break;
+			default:
+				break;
+			}
+
+			//만약 권한이 한개도 없다면
+			if (!checkPermissiones(userID, permission)) {
+				cout << "메모에 접근 권한이 없습니다." << endl;
+				continue;
+			}
+			else {
+				
+				//같은 그룹일때 power에서 앞에 3개를 끊어서 t/f 구분
+				//다른 그룹일때 뒤에 3개를 끊어서 t/f구분
+				int count = 0; char temp[3];
+				for (int i = (0+(j*3)); i < (3+(j * 3)); i++) {
+					temp[i] = permission.at(i);
+					int t = temp[i] - '0';
+					if (t) {
+						if (i == 0 || i == 3) {
+							cout << (++count) + ". 메모 읽기" << endl;
+						}
+						else if (i==1||i==4) {
+							cout << (++count) + ". 메모 수정" << endl;
+						}
+						else {
+							cout << (++count) + ". 메모 권한 변경" << endl;
+						}
+					}
+				}
+
+				
+
+				//읽기 권한
+				showSearchedMemo(tempMemoNumList, num);
+
+				//수정 권한
+			}
+
 		}
 		else if (!menu.compare("3")) {
 			break;
@@ -625,7 +704,7 @@ void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 	}
 	else {
 		memoList[tempMemoNumList[position]].showMemo();
-		string select;
+		/*string select;
 		do {
 			cout << "메모를 삭제 하시겠습니까? ( y / n ) ";
 			getline(cin, select);
@@ -640,7 +719,7 @@ void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 			else {
 				cout << "잘못된 입력값입니다." << endl;
 			}
-		} while (true);
+		} while (true);*/
 	}
 }
 
@@ -789,7 +868,7 @@ void MemoManager::loginMenu()
 		cout << "메뉴 번호를 입력하세요 ▶ ";
 		getline(cin, menu);
 		if (menu.compare("1") == 0) { //로그인
-			
+
 		}
 		else if (menu.compare("2") == 0) { //회원가입
 			regi();
@@ -802,7 +881,7 @@ void MemoManager::loginMenu()
 			cout << "올바른 메뉴 번호가 아닙니다. 다시 입력해주세요. (press any key) " << endl;
 			_getch();
 		}
-		
+
 	} while (true);
 }
 
@@ -841,9 +920,9 @@ void MemoManager::regi()
 		}
 		if (check)
 			break;
-		
+
 	} while (true);
-	
+
 	do
 	{
 		cout << "사용할 비밀번호를 입력하세요 ▶";
