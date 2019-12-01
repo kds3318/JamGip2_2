@@ -7,7 +7,7 @@ Group::Group(string name)
 }
 
 Group::Group(string name, vector<string> childGroup)
-	:name(name), childGroup(childGroup)
+	: name(name), childGroup(childGroup)
 {
 };
 

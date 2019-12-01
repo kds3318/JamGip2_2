@@ -19,53 +19,53 @@ class MemoManager
 private:
 	vector<Memo> memoList;
 	vector<User> userList;
-	int user_index; //ë¡œê·¸ì¸ í•œ ìœ ì €ì˜ userList ë‚´ì˜ index
+	int user_index; //·Î±×ÀÎ ÇÑ À¯ÀúÀÇ userList ³»ÀÇ index
 	vector<Group> groupList;
-	
 
-	
+
+
 public:
 	MemoManager();
-	void showMainMenu(); // ë©”ì¸ ë©”ë‰´
-	void writeMemo(); // 1. ë©”ëª¨ ì‘ì„±
-	void deleteMemo(string a); // ë©”ëª¨ ì‚­ì œ
+	void showMainMenu(); // ¸ŞÀÎ ¸Ş´º
+	void writeMemo(); // 1. ¸Ş¸ğ ÀÛ¼º
+	void deleteMemo(string a); // ¸Ş¸ğ »èÁ¦
 	vector<string> stringSplit(string t, string Tok);
-	bool checkName(string name); // ì‘ì„±ì‹œ ë©”ëª¨ ì´ë¦„ ê²€ì‚¬
-	bool overlapName(string name); // ë©”ëª¨ ì´ë¦„ ì¤‘ë³µ ìœ ë¬´
-	bool checkContent(vector<string> content); // ì‘ì„±ì‹œ ë©”ëª¨ ë‚´ìš© ê²€ì‚¬
-	bool checkTags(vector<string> tags); // ì‘ì„±ì‹œ ë©”ëª¨ íƒœê·¸ ê²€ì‚¬
-	bool findMyChar(string str); // ê²€ìƒ‰ ê¸°í˜¸ í¬í•¨ ìœ ë¬´
-	bool checkLength(string str, int length); //ê¸¸ì´ ì´ˆê³¼ í™•ì¸ (length = ìµœëŒ€ ê¸¸ì´)
-	bool checkSearchWords(vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword); // ê²€ìƒ‰ ì‹œ íƒœê·¸ ê²€ì‚¬
-	bool checkPower(vector<string> powers, string& power); // ì‘ì„±ì‹œ ê¶Œí•œ ê²€ì‚¬
-	//ì„±ìœ¤
-	void searchMenu();            // 2. ë©”ëª¨ ê²€ìƒ‰
-	void search_Tags();            //2.1. íƒœê·¸ë¡œ ê²€ìƒ‰
-	void search_Content();         //2.2. ë‚´ìš©ìœ¼ë¡œ ê²€ìƒ‰
-	void search_Name();            //2.3. ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰
-	void search_Tags_Content();      //2.4. íƒœê·¸+ë‚´ìš©ìœ¼ë¡œ ê²€ìƒ‰
+	bool checkName(string name); // ÀÛ¼º½Ã ¸Ş¸ğ ÀÌ¸§ °Ë»ç
+	bool overlapName(string name); // ¸Ş¸ğ ÀÌ¸§ Áßº¹ À¯¹«
+	bool checkContent(vector<string> content); // ÀÛ¼º½Ã ¸Ş¸ğ ³»¿ë °Ë»ç
+	bool checkTags(vector<string> tags); // ÀÛ¼º½Ã ¸Ş¸ğ ÅÂ±× °Ë»ç
+	bool findMyChar(string str); // °Ë»ö ±âÈ£ Æ÷ÇÔ À¯¹«
+	bool checkLength(string str, int length); //±æÀÌ ÃÊ°ú È®ÀÎ (length = ÃÖ´ë ±æÀÌ)
+	bool checkSearchWords(vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword); // °Ë»ö ½Ã ÅÂ±× °Ë»ç
+	bool checkPower(vector<string> powers, string& power); // ÀÛ¼º½Ã ±ÇÇÑ °Ë»ç
+	//¼ºÀ±
+	void searchMenu();            // 2. ¸Ş¸ğ °Ë»ö
+	void search_Tags();            //2.1. ÅÂ±×·Î °Ë»ö
+	void search_Content();         //2.2. ³»¿ëÀ¸·Î °Ë»ö
+	void search_Name();            //2.3. ÀÌ¸§À¸·Î °Ë»ö
+	void search_Tags_Content();      //2.4. ÅÂ±×+³»¿ëÀ¸·Î °Ë»ö
 	void searchMemo(vector<string> searchWords, int menu_flag, vector<string> operation, vector<vector<string>> slashword);
-	void showMemoList(vector<int> tempMemoNumList);         //ê²€ìƒ‰í•œ ë©”ëª¨ ë¦¬ìŠ¤íŠ¸
-	void showSearchedMemo(vector<int> tempMemoNumList, int position);   //ê²€ìƒ‰ëœ ë©”ëª¨ ì¶œë ¥
+	void showMemoList(vector<int> tempMemoNumList);         //°Ë»öÇÑ ¸Ş¸ğ ¸®½ºÆ®
+	void showSearchedMemo(vector<int> tempMemoNumList, int position);   //°Ë»öµÈ ¸Ş¸ğ Ãâ·Â
 	bool searching(int menu_flag, int index, vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword);
 
 
-	int checkCorrelation(string userID, string userID2);		//ìœ ì €ì™€ onwerì˜ ê´€ê³„ íŒë‹¨  ìœ ì €=owner(0), ìœ ì €=ownergroup(1), user!=ownergroup(2)
-	bool checkPermissiones(string userID, string permission);		//ê²€ìƒ‰í•˜ë ¤ëŠ” ë©”ëª¨ì— ê¶Œí•œì´ ìˆëŠ”ì§€ ê²€ì‚¬
-	void permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num);								//ìˆ˜ì • ë©”ë‰´ ì¶œë ¥
+	int checkCorrelation(string userID, string userID2);		//À¯Àú¿Í onwerÀÇ °ü°è ÆÇ´Ü  À¯Àú=owner(0), À¯Àú=ownergroup(1), user!=ownergroup(2)
+	bool checkPermissiones(string userID, string permission);		//°Ë»öÇÏ·Á´Â ¸Ş¸ğ¿¡ ±ÇÇÑÀÌ ÀÖ´ÂÁö °Ë»ç
+	void permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num);								//¼öÁ¤ ¸Ş´º Ãâ·Â
 	void modifyMenu(bool flag, vector<int> tempMemoNumList, int num);
 	void modifyPermission();
 
-	//ì¢…ìš°
+	//Á¾¿ì
 	void loadData();
 	void saveMemo(Memo memo);
-	//ì§€í˜¸
-	void ascend(vector<int> & list);
-	void name_ascend(vector<int>& list);//ë°˜í™˜ê°’ ì›ë˜ vector<Memo>, ì¸ì ì›ë˜ vector<Memo>
+	//ÁöÈ£
+	void ascend(vector<int>& list);
+	void name_ascend(vector<int>& list);//¹İÈ¯°ª ¿ø·¡ vector<Memo>, ÀÎÀÚ ¿ø·¡ vector<Memo>
 	void name_decend(vector<int>& list);
 	void time_ascend(vector<int>& list);
 	void time_decend(vector<int>& list);
-	
+
 
 	void loginMenu();
 	void regi();
@@ -77,4 +77,3 @@ public:
 	void loadGroup();
 	void login();
 };
-

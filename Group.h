@@ -12,10 +12,9 @@ private:
 	string name;
 	int depth;
 	vector<string> childGroup;
-public :
+public:
 	Group(string name);
 	Group(string name, vector<string> childGroup);
 	string getName();
 	vector<string>& getChild();
 };
-

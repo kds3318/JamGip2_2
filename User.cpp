@@ -10,7 +10,7 @@ User::User(string id, string pass)
 }
 
 User::User(string id, string pass, string group)
-	:id(id), password(pass), group(group)
+	: id(id), password(pass), group(group)
 {
 }
 
