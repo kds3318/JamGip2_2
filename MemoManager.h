@@ -10,6 +10,7 @@
 #include<conio.h>
 #include"Memo.h"
 #include"User.h"
+#include"Group.h"
 
 class MemoManager
 {
@@ -17,6 +18,8 @@ private:
 	vector<Memo> memoList;
 	vector<User> userList;
 	int user_index; //로그인 한 유저의 userList 내의 index
+	vector<Group> groupList;
+	
 
 	
 public:
@@ -43,6 +46,7 @@ public:
 	void showMemoList(vector<int> tempMemoNumList);         //검색한 메모 리스트
 	void showSearchedMemo(vector<int> tempMemoNumList, int position);   //검색된 메모 출력
 	bool searching(int menu_flag, int index, vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword);
+	int checkCorrelation(string userID, string groupName);
 	//종우
 	void loadData();
 	void saveMemo(Memo memo);
@@ -56,5 +60,9 @@ public:
 
 	void loginMenu();
 	void regi();
+	void root_menu();
+	void make_group();
+	void change_group();
+	bool search_group(string n1, string n2);
 };
 

@@ -2,6 +2,8 @@
 
 MemoManager::MemoManager()
 {
+	groupList.push_back(Group("default"));
+	//groupList.at(i)
 }
 
 void MemoManager::loadData() {
@@ -617,6 +619,20 @@ void MemoManager::showMemoList(vector<int> tempMemoNumList)
 	} while (!menu.compare("1") || menu.compare("2"));
 }
 
+
+//유저와 onwer의 관계 판단 , 유저=ownergroup(1), user!=ownergroup(2)
+int MemoManager::checkCorrelation(string userID, string userID2) //userID는 작성자, userID2는 로그인 한 유저
+{
+	//user와 owner가 같으면
+	if (!userID.compare(userID2)) { return 0; }
+
+	//user가 owner는 아니지만 owner와 같은 그룹일때
+	else if (search_group(userID, userID2)) { return 1; }
+
+	//user는 owner가 아니고 owner와 다른 그룹일때
+	else { return 2; }
+}
+
 void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 {
 	position--;      //선택된 값에서 -1 해서 다시 인덱스로 변경
@@ -882,6 +898,81 @@ void MemoManager::regi()
 	userList.push_back(user);
 }
 
+void MemoManager::change_group()
+{
+	cout << "▶ 그룹 변경 ◀\n" << endl;
+	vector<string> input;
+	do {
+		cout << "유저의 아이디와 그 유저가 속할 최하위 그룹을 입력해주세요 ▼" << endl;
+		string group;
+		getline(cin, group);
+		input = stringSplit(group, " "); // 문자열 분리
+		if (input.size() != 2) {
+			cout << "잘못된 입력입니다." << endl;
+			continue;
+		}
+		int cnt = 0;
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.at(i).getId().compare(input.at(0)) == 0)
+				cnt++;
+		}
+		if (!cnt) {
+			cout << "존재하지 않는 아이디입니다." << endl;
+			continue;
+		}
+		cnt = 0;
+		for (int i = 0; i < groupList.size(); i++) {
+			if (groupList.at(i).getName().compare(input.at(1)) == 0)
+				cnt++;
+		}
+		if (!cnt) {
+			cout << "존재하지 않는 그룹입니다." << endl;
+			continue;
+		}
+	} while (true);
+}
+
+bool MemoManager::search_group(string n1, string n2)
+{
+	int i,j;
+	string g1,g2;
+
+	for (i = 0; i < userList.size(); i++) {
+		if (userList.at(i).getId().compare(n1) == 0) {
+			g1 = userList.at(i).getGroup();
+			break;
+		}
+	}
+	for (j = 0; j < userList.size(); j++) {
+		if (userList.at(j).getId().compare(n2) == 0) {
+			g2 = userList.at(j).getGroup();
+			break;
+		}
+	}
+
+	if (g1.compare(g2) == 0) {
+		return true;
+	}
+
+	for (int k = 0; k < groupList.size(); k++) {
+		if (g1.compare(groupList.at(k).getName()) == 0) {
+			for (int m = 0; m < groupList.at(k).getChild().size(); m++) {
+				if (g1.compare(groupList.at(k).getChild().at(m).getName()) == 0) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+
+
+	
+
+
+
+}
+
 bool MemoManager::checkPower(vector<string> powers, string& power)
 {
 	if (powers.size() == 2) {
@@ -906,4 +997,50 @@ bool MemoManager::checkPower(vector<string> powers, string& power)
 		return false;
 
 	return true;
+}
+
+void MemoManager::root_menu() {
+	string menu;
+	do {
+		cout << "1. 그룹 생성\n2. 유저의 그룹 변경\n3. 로그아웃" << endl;
+		cout << "메뉴 번호를 입력하세요 ▶ ";
+		getline(cin, menu);
+		if (!menu.compare("1")) {
+			make_group();
+		}
+		else if (!menu.compare("2")) {
+			change_group();
+		}
+		else if (!menu.compare("3")) {
+			return;
+		}
+		else {
+			cout << "잘못 입력하셨습니다." << endl;
+		}
+	} while (menu.compare("3"));
+
+}
+
+void MemoManager::make_group() {
+	cout << "▶ 그룹 생성 ◀\n" << endl;
+	vector<string> input;
+	do {
+		cout << "생성할 그룹의 이름과 그룹의 부모 그룹을 입력하세요 ▼" << endl;
+		string group;
+		getline(cin, group);
+		input = stringSplit(group, " "); // 문자열 분리
+		if (input.size() != 2) {
+			cout << "잘못된 입력입니다." << endl;
+			continue;
+		}
+		else if (input.at(0).length() > 20) {
+			cout << "그룹의 길이는 20byte 이하이어야 합니다." << endl;
+			continue;
+		}
+		else {
+			break;
+		}
+	} while (true);
+
+
 }
