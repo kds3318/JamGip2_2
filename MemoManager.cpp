@@ -2,8 +2,6 @@
 
 MemoManager::MemoManager()
 {
-	groupList.push_back(Group("default"));
-	//groupList.at(i)
 }
 
 void MemoManager::loadData() {
@@ -798,6 +796,17 @@ void MemoManager::time_decend(vector<int>& list)
 
 void MemoManager::loginMenu()
 {
+	loadData();
+	loadUser();
+	loadGroup();
+
+	for (int i = 0; i < groupList.size(); i++) {
+		cout << groupList.at(i).getName() << endl;
+		for (int j = 0; j < groupList.at(i).getChild().size(); j++) {
+			cout << "그룹" << j + 1 << " " << groupList.at(i).getChild().at(j) << endl;
+		}
+	}
+
 	string menu;
 	do
 	{
@@ -957,7 +966,7 @@ bool MemoManager::search_group(string n1, string n2)
 	for (int k = 0; k < groupList.size(); k++) {
 		if (g1.compare(groupList.at(k).getName()) == 0) {
 			for (int m = 0; m < groupList.at(k).getChild().size(); m++) {
-				if (g1.compare(groupList.at(k).getChild().at(m).getName()) == 0) {
+				if (g1.compare(groupList.at(k).getChild().at(m)) == 0) {
 					return true;
 				}
 			}
@@ -1043,4 +1052,91 @@ void MemoManager::make_group() {
 	} while (true);
 
 
+}
+
+void MemoManager::loadUser() {
+	//현재경로
+	char path[129] = { 0 };
+	if (GetCurrentDirectoryA(128, path) > 0) {
+		//cout << string(path) << endl;
+	}
+	string way = string(path);
+	way = way + "\\info" + "\\" + "user.txt";
+
+	ifstream rfile;
+	std::string line;
+	rfile.open(way);
+
+	if (rfile.is_open()) {
+		int count = 1;
+		string name;
+		string pw;
+		string group;
+		while (!rfile.eof()) {
+
+			string line;
+			getline(rfile, line);
+			name = line;
+			cout << "유저이름 : " << name << endl;
+
+			getline(rfile, line);
+			pw = line;
+			cout << "비밀번호 : " << pw << endl;
+
+			getline(rfile, line);
+			group = line;
+			//그룹 객체생성 & push
+			cout << "그룹이름 : " << group << endl;
+			User u(name, pw, group);
+			userList.push_back(u);
+		}
+		rfile.close();
+	}
+}
+void MemoManager::loadGroup() {
+	//현재경로
+	char path[129] = { 0 };
+	if (GetCurrentDirectoryA(128, path) > 0) {
+		//cout << string(path) << endl;
+	}
+	string way = string(path);
+	way = way + "\\info" + "\\" + "group.txt";
+
+	ifstream rfile;
+	std::string line;
+	rfile.open(way);
+
+	if (rfile.is_open()) {
+		string name;
+		vector<string> childs;
+		while (!rfile.eof()) {
+
+			string line;
+			getline(rfile, line);
+			name = line;
+			cout << "그룹이름 : " << name << endl;
+
+			//childGroup
+			getline(rfile, line);
+			if (line != "") {
+				childs = stringSplit(line, " ");
+			}
+			Group g(name, childs);
+			childs.clear();
+			groupList.push_back(g);
+		}
+		rfile.close();
+	}
+}
+
+void MemoManager::login()
+{
+	system("cls");
+	string id, pass;
+
+	cout << "아이디를 입력해주세요 ▶ " << endl;
+	getline(cin, id);
+
+	cout << "비밀번호를 입력해주세요 ▶ " << endl;
+	getline(cin, pass);
 }

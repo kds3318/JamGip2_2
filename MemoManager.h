@@ -64,5 +64,8 @@ public:
 	void make_group();
 	void change_group();
 	bool search_group(string n1, string n2);
+	void loadUser();
+	void loadGroup();
+	void login();
 };
 

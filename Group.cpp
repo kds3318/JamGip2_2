@@ -6,7 +6,7 @@ Group::Group(string name)
 {
 }
 
-Group::Group(string name, vector<Group> childGroup)
+Group::Group(string name, vector<string> childGroup)
 	:name(name), childGroup(childGroup)
 {
 };
@@ -14,6 +14,6 @@ Group::Group(string name, vector<Group> childGroup)
 string Group::getName() {
 	return name;
 }
-vector<Group>& Group::getChild() {
+vector<string>& Group::getChild() {
 	return childGroup;
 }
