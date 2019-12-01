@@ -8,8 +8,10 @@
 #include <Windows.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<cstdlib>
 #include"Memo.h"
 #include"User.h"
+
 
 class MemoManager
 {
@@ -43,6 +45,13 @@ public:
 	void showMemoList(vector<int> tempMemoNumList);         //검색한 메모 리스트
 	void showSearchedMemo(vector<int> tempMemoNumList, int position);   //검색된 메모 출력
 	bool searching(int menu_flag, int index, vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword);
+	
+	int checkCorrelation(string userID, string groupName);		//유저와 onwer의 관계 판단  유저=owner(0), 유저=ownergroup(1), user!=ownergroup(2)
+	bool checkPermissiones(string userID, string permission);		//검색하려는 메모에 권한이 있는지 검사
+	void permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num);								//수정 메뉴 출력
+	void modifyMenu(bool flag, vector<int> tempMemoNumList, int num);
+	void modifyPermission();
+
 	//종우
 	void loadData();
 	void saveMemo(Memo memo);
