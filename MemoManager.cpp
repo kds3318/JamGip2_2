@@ -579,14 +579,14 @@ bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWord
 //유저와 onwer의 관계 판단 , 유저=ownergroup(1), user!=ownergroup(2)
 int MemoManager::checkCorrelation(string userID, string groupName)
 {
-	//user와 owner가 같으면
-	if (userID.compare()) { return 0; }
+	////user와 owner가 같으면
+	//if (userID.compare()) { return 0; }
 
-	//user가 owner는 아니지만 owner와 같은 그룹일때
-	else if () { return 1; }
+	////user가 owner는 아니지만 owner와 같은 그룹일때
+	//else if () { return 1; }
 
-	//user는 owner가 아니고 owner와 다른 그룹일때
-	else { return 2; }
+	////user는 owner가 아니고 owner와 다른 그룹일때
+	//else { return 2; }
 }
 
 //검색하려는 메모에 권한이 있는지 검사
