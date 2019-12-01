@@ -817,6 +817,10 @@ void MemoManager::regi()
 		cout << "사용할 아이디를 입력하세요 ▶";
 		getline(cin, id);
 		bool check = true;
+		if (id.size() > 20 || id.size() < 1) {
+			cout << "1byte 이상 20byte이하로 입력해주세요" << endl;
+			continue;
+		}
 		if (id.find(" ") != -1) {
 			cout << "공백은 입력 받을 수 없습니다." << endl;
 			continue;
@@ -847,14 +851,18 @@ void MemoManager::regi()
 	do
 	{
 		cout << "사용할 비밀번호를 입력하세요 ▶";
-		getline(cin, id);
+		getline(cin, pass);
 		bool check = true;
-		if (id.find(" ") != -1) {
+		if (pass.size() > 20 || pass.size() < 1) {
+			cout << "1byte 이상 20byte이하로 입력해주세요" << endl;
+			continue;
+		}
+		if (pass.find(" ") != -1) {
 			cout << "공백은 입력 받을 수 없습니다." << endl;
 			continue;
 		}
-		for (int i = 0; i < id.length(); i++) {
-			if ((id.at(i) >= 'a' && id.at(i) <= 'z') || (id.at(i) >= 'A' && id.at(i) <= 'Z') || (id.at(i) >= '0' && id.at(i) <= '9'));
+		for (int i = 0; i < pass.length(); i++) {
+			if ((pass.at(i) >= 'a' && pass.at(i) <= 'z') || (pass.at(i) >= 'A' && pass.at(i) <= 'Z') || (pass.at(i) >= '0' && pass.at(i) <= '9'));
 			else {
 				cout << "영어 또는 숫자만 입력해주세요." << endl;
 				check = false;
