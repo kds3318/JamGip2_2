@@ -1,17 +1,19 @@
 #include "Group.h"
 
 
-Group::Group(string name, vector<User> userList, vector<Group> childGroup)
-	:name(name), userList(userList), childGroup(childGroup)
+Group::Group(string name)
+	:name(name)
+{
+}
+
+Group::Group(string name, vector<string> childGroup)
+	:name(name), childGroup(childGroup)
 {
 };
 
 string Group::getName() {
 	return name;
 }
-vector<User>& Group::getList() {
-	return userList;
-}
-vector<Group>& Group::getChild() {
+vector<string>& Group::getChild() {
 	return childGroup;
 }

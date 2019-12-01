@@ -10,12 +10,12 @@ class Group
 {
 private:
 	string name;
-	vector<User> userList;
-	vector<Group> childGroup;
+	int depth;
+	vector<string> childGroup;
 public :
-	Group(string name, vector<User> userList, vector<Group> childGroup);
+	Group(string name);
+	Group(string name, vector<string> childGroup);
 	string getName();
-	vector<User>& getList();
-	vector<Group>& getChild();
+	vector<string>& getChild();
 };
 

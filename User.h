@@ -9,6 +9,7 @@ class User
 public:
 	User();
 	User(string id, string pass);
+	User(string id, string pass, string group);
 	~User();
 	string getId();
 	string getPass();
