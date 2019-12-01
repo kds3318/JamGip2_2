@@ -658,32 +658,7 @@ void MemoManager::showMemoList(vector<int> tempMemoNumList)
 				continue;
 			}
 			else {
-				
-				//같은 그룹일때 power에서 앞에 3개를 끊어서 t/f 구분
-				//다른 그룹일때 뒤에 3개를 끊어서 t/f구분
-				int count = 0; char temp[3];
-				for (int i = (0+(j*3)); i < (3+(j * 3)); i++) {
-					temp[i] = permission.at(i);
-					int t = temp[i] - '0';
-					if (t) {
-						if (i == 0 || i == 3) {
-							cout << (++count) + ". 메모 읽기" << endl;
-						}
-						else if (i==1||i==4) {
-							cout << (++count) + ". 메모 수정" << endl;
-						}
-						else {
-							cout << (++count) + ". 메모 권한 변경" << endl;
-						}
-					}
-				}
-
-				
-
-				//읽기 권한
-				showSearchedMemo(tempMemoNumList, num);
-
-				//수정 권한
+				permissionMenu(permission, j, tempMemoNumList, num);
 			}
 
 		}
@@ -696,6 +671,131 @@ void MemoManager::showMemoList(vector<int> tempMemoNumList)
 	} while (!menu.compare("1") || menu.compare("2"));
 }
 
+void MemoManager::permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num) {
+
+	//같은 그룹일때 permission에서 앞에 3개를 끊어서 t/f 구분
+	//다른 그룹일때 뒤에 3개를 끊어서 t/f구분
+	string select;
+	vector<int> index;
+	int count = 0; char temp[3];  bool flag = false;
+	for (int i = (0 + (j * 3)); i < (3 + (j * 3)); i++) {
+		temp[i] = permission.at(i);
+		int t = temp[i] - '0';
+		if (t) {
+			if (i == 0 || i == 3) {
+				cout << (++count) + ". 메모 읽기" << endl;
+				index.push_back(1);
+				flag = true;
+			}
+			else if (i == 1 || i == 4) {
+				cout << (++count) + ". 메모 수정" << endl;
+				index.push_back(2);
+			}
+			else {
+				cout << (++count) + ". 메모 권한 변경" << endl;
+				index.push_back(3);
+			}
+		}
+	}
+	getline(cin, select);
+
+
+	if (!select.compare("1")) {
+		switch (index[0])
+		{
+		case 1:
+			//메모 출력
+			showSearchedMemo(tempMemoNumList, num);
+			break;
+		case 2:
+			//메모 수정
+			modifyMenu(flag, tempMemoNumList, num);
+			break;
+		case 3:
+			//메모 권한 변경
+			modifyPermission();
+			break;
+		default:
+			break;
+		}
+	}
+	else if (!select.compare("2")) {
+		switch (index[1])
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+	}
+	else if (!select.compare("3")) {
+		switch (index[2])
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void MemoManager::modifyMenu(bool flag, vector<int> tempMemoNumList, int num) {
+
+	//읽기 권한이 있으면 메모 출력 후 메뉴 출력
+	if (flag) {
+		showSearchedMemo(tempMemoNumList, num);
+	}
+
+	do {
+		string select;
+		cout << "1. 메모 수정\n2. 메모 삭제" << endl;
+		getline(cin, select);
+
+		//메모 수정
+		if (!select.compare("1")) {
+			break;
+		}
+		//메모 삭제
+		else if (!select.compare("2")) {
+			string select2;
+			do {
+				cout << "메모를 삭제 하시겠습니까? ( y / n ) ";
+				getline(cin, select2);
+				if (!select2.compare("y")) {
+					deleteMemo(memoList[tempMemoNumList[num - 1]].getName());
+					memoList.erase(memoList.begin() + (num - 1));
+					break;
+				}
+				else if ((!select2.compare("n"))) {
+					break;
+				}
+				else {
+					cout << "잘못된 입력값입니다." << endl;
+				}
+			} while (true);
+		}
+		else {
+			cout << "잘못된 입력입니다." << endl;
+			continue;
+		}
+	} while (true);
+	
+
+}
+
+//권한 변경 함수
+void MemoManager::modifyPermission() {
+
+}
+
 void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 {
 	position--;      //선택된 값에서 -1 해서 다시 인덱스로 변경
@@ -704,22 +804,6 @@ void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 	}
 	else {
 		memoList[tempMemoNumList[position]].showMemo();
-		/*string select;
-		do {
-			cout << "메모를 삭제 하시겠습니까? ( y / n ) ";
-			getline(cin, select);
-			if (!select.compare("y")) {
-				deleteMemo(memoList[tempMemoNumList[position]].getName());
-				memoList.erase(memoList.begin() + position);
-				break;
-			}
-			else if ((!select.compare("n"))) {
-				break;
-			}
-			else {
-				cout << "잘못된 입력값입니다." << endl;
-			}
-		} while (true);*/
 	}
 }
 

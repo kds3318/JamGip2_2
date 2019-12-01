@@ -48,6 +48,10 @@ public:
 	
 	int checkCorrelation(string userID, string groupName);		//유저와 onwer의 관계 판단  유저=owner(0), 유저=ownergroup(1), user!=ownergroup(2)
 	bool checkPermissiones(string userID, string permission);		//검색하려는 메모에 권한이 있는지 검사
+	void permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num);								//수정 메뉴 출력
+	void modifyMenu(bool flag, vector<int> tempMemoNumList, int num);
+	void modifyPermission();
+
 	//종우
 	void loadData();
 	void saveMemo(Memo memo);
