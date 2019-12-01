@@ -793,7 +793,25 @@ void MemoManager::modifyMenu(bool flag, vector<int> tempMemoNumList, int num) {
 
 //권한 변경 함수
 void MemoManager::modifyPermission() {
-
+	do {
+		cout << "변경할 권한을 입력해주세요 ▶ ";
+		string permission;
+		getline(cin, permission);
+		if (permission.length() == 6) {
+			for (int i = 0; i < 6; i++) {
+				if (permission[i] != '1' && permission[i] != '0') {
+					cout << "잘못된 입력입니다." << endl;
+					continue;
+				}
+			}
+			break;
+		}
+		else {
+			cout << "잘못된 입력입니다." << endl;
+			continue;
+		}
+	} while (true);
+	cout << "권한이 변경되었습니다." << endl;
 }
 
 void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
