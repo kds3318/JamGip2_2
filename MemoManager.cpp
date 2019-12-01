@@ -677,10 +677,9 @@ void MemoManager::permissionMenu(string permission, int j, vector<int> tempMemoN
 	//다른 그룹일때 뒤에 3개를 끊어서 t/f구분
 	string select;
 	vector<int> index;
-	int count = 0; char temp[3];  bool flag = false;
+	int count = 0;  bool flag = false;
 	for (int i = (0 + (j * 3)); i < (3 + (j * 3)); i++) {
-		temp[i] = permission.at(i);
-		int t = temp[i] - '0';
+		int t = permission.at(i) - '0';
 		if (t) {
 			if (i == 0 || i == 3) {
 				cout << (++count) + ". 메모 읽기" << endl;
