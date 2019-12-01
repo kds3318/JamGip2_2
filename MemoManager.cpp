@@ -5,7 +5,7 @@ MemoManager::MemoManager()
 }
 
 void MemoManager::loadData() {
-	//ÇöÀç°æ·Î
+	//í˜„ì¬ê²½ë¡œ
 	char path[129] = { 0 };
 	if (GetCurrentDirectoryA(128, path) > 0) {
 		//cout << string(path) << endl;
@@ -31,10 +31,10 @@ void MemoManager::loadData() {
 	//   cout << txtNames[i] << endl;
 	//}
 	//cout << path << endl;
-	//ÇöÀç °æ·Î¿¡¼­ txtÆÄÀÏ Å½»ö
+	//í˜„ì¬ ê²½ë¡œì—ì„œ txtíŒŒì¼ íƒìƒ‰
 
-	//txtNames¿¡ ÆÄÀÏ¸ñ·ÏÀÌ µé¾îÀÖ´Â »óÅÂ
-	//ºÒ·¯¿À±â ÇÏ¸éµÈ´Ù
+	//txtNamesì— íŒŒì¼ëª©ë¡ì´ ë“¤ì–´ìˆëŠ” ìƒíƒœ
+	//ë¶ˆëŸ¬ì˜¤ê¸° í•˜ë©´ëœë‹¤
 	for (int i = 0; i < txtNames.size(); i++) {
 		string in_line, power, owner;
 		vector<string> tags, content, date;
@@ -73,12 +73,12 @@ void MemoManager::saveMemo(Memo memo)
 
 	out << nal << endl;
 
-	//content ÀÔ·Â
+	//content ì…ë ¥
 	for (int i = 0; i < memo.getContent().size(); i++) {
 		out << memo.getContent()[i] << endl;
 	}
 	out << "+" << endl;
-	//tag ÀÔ·Â
+	//tag ì…ë ¥
 	for (int i = 0; i < memo.getTags().size(); i++) {
 		out << memo.getTags()[i] << " ";
 	}
@@ -95,8 +95,8 @@ void MemoManager::showMainMenu()
 	loadData();
 	string menu;
 	do {
-		cout << "1. ¸Ş¸ğ ÀÛ¼º\n2. ¸Ş¸ğ °Ë»ö\n3. Á¾ ·á" << endl;
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. ë©”ëª¨ ì‘ì„±\n2. ë©”ëª¨ ê²€ìƒ‰\n3. ì¢… ë£Œ" << endl;
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
 		if (menu.compare("1") == 0) {
 			writeMemo();
@@ -105,10 +105,10 @@ void MemoManager::showMainMenu()
 			searchMenu();
 		}
 		else if (menu.compare("3") == 0) {
-			cout << "ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù." << endl;
+			cout << "í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤." << endl;
 		}
 		else {
-			cout << "¿Ã¹Ù¸¥ ¸Ş´º ¹øÈ£°¡ ¾Æ´Õ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä. (press any key) " << endl;
+			cout << "ì˜¬ë°”ë¥¸ ë©”ë‰´ ë²ˆí˜¸ê°€ ì•„ë‹™ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”. (press any key) " << endl;
 			_getch();
 		}
 	} while (menu != "3");
@@ -116,15 +116,15 @@ void MemoManager::showMainMenu()
 
 void MemoManager::writeMemo()
 {
-	cout << "\n»õ ¸Ş¸ğ ÀÛ¼º " << endl << endl;
-	//ÀÛ¼ºÇÒ º¯¼ö ¼±¾ğ
+	cout << "\nìƒˆ ë©”ëª¨ ì‘ì„± " << endl << endl;
+	//ì‘ì„±í•  ë³€ìˆ˜ ì„ ì–¸
 	string name, power = "";
 	vector<string> content, tags, powers;
 
 
 	do {
-		//Á¦¸ñ ÀÔ·Â
-		cout << "Á¦¸ñ ¡å " << endl;
+		//ì œëª© ì…ë ¥
+		cout << "ì œëª© â–¼ " << endl;
 		do {
 			getline(cin, name);
 		} while (name == "");
@@ -132,11 +132,11 @@ void MemoManager::writeMemo()
 		if (name.find("\\") != string::npos || name.find("\t") != string::npos || name.find("\/") != string::npos || name.find(":") != string::npos ||
 			name.find("*") != string::npos || name.find("<") != string::npos || name.find(">") != string::npos ||
 			name.find("?") != string::npos || name.find("\"") != string::npos || name.find("|") != string::npos) {
-			cout << "txt ÆÄÀÏÀÇ ÀÌ¸§À¸·Î »ç¿ëÇÒ ¼ö ¾ø´Â ±âÈ£°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù." << endl;
+			cout << "txt íŒŒì¼ì˜ ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ê¸°í˜¸ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤." << endl;
 			continue;
 		}
 		if (overlapName(name)) {
-			cout << "ÀÌ¸§ Áßº¹" << endl;
+			cout << "ì´ë¦„ ì¤‘ë³µ" << endl;
 			continue;
 		}
 		if (checkName(name))
@@ -144,13 +144,13 @@ void MemoManager::writeMemo()
 	} while (true);
 
 	do {
-		//³»¿ë ÀÔ·Â
+		//ë‚´ìš© ì…ë ¥
 		content.clear();
-		cout << "³»¿ë ¡å " << endl;
+		cout << "ë‚´ìš© â–¼ " << endl;
 		do {
 			string line;
 			getline(cin, line);
-			if (line == "<end>") // ³¡À» ¾Ë¸®´Â ¹®ÀÚ ÀÔ·ÂÈÄ ¿£ÅÍÄ¡¸é ³¡
+			if (line == "<end>") // ëì„ ì•Œë¦¬ëŠ” ë¬¸ì ì…ë ¥í›„ ì—”í„°ì¹˜ë©´ ë
 				break;
 			content.push_back(line);
 		} while (true);
@@ -158,31 +158,31 @@ void MemoManager::writeMemo()
 	} while (!checkContent(content));
 
 	do {
-		//ÅÂ±× ÀÔ·Â
-		cout << "\nÅÂ±×¸¦ ÀÔ·ÂÇÏ¼¼¿ä(A B C D) ¡å " << endl;
+		//íƒœê·¸ ì…ë ¥
+		cout << "\níƒœê·¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”(A B C D) â–¼ " << endl;
 		string t;
 		do {
 			getline(cin, t);
 		} while (t == "");
-		tags = stringSplit(t, " "); // ¹®ÀÚ¿­ ºĞ¸®
-	} while (!checkTags(tags)); // ¹Ì¿Ï¼º
+		tags = stringSplit(t, " "); // ë¬¸ìì—´ ë¶„ë¦¬
+	} while (!checkTags(tags)); // ë¯¸ì™„ì„±
 
 	do {
-		//±ÇÇÑ ÀÔ·Â
-		cout << "\n±ÇÇÑÀ» ÀÔ·ÂÇÏ¼¼¿ä(xxx xxx) ¡å " << endl;
+		//ê¶Œí•œ ì…ë ¥
+		cout << "\nê¶Œí•œì„ ì…ë ¥í•˜ì„¸ìš”(xxx xxx) â–¼ " << endl;
 		string t;
 		do {
 			getline(cin, t);
 		} while (t == "");
-		powers = stringSplit(t, " "); // ¹®ÀÚ¿­ ºĞ¸®
-	} while (!checkPower(powers, power)); // ¹Ì¿Ï¼º
+		powers = stringSplit(t, " "); // ë¬¸ìì—´ ë¶„ë¦¬
+	} while (!checkPower(powers, power)); // ë¯¸ì™„ì„±
 
 	do {
-		cout << "\n¸Ş¸ğ¸¦ ÀúÀåÇÏ½Ã°Ú½À´Ï±î ? ( y / n )  ";
+		cout << "\në©”ëª¨ë¥¼ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ ? ( y / n )  ";
 		string save;
 		getline(cin, save);
 		if (!save.compare("y") || !save.compare("Y")) {
-			cout << "ÀúÀåµÇ¾ú½À´Ï´Ù. (press any key) " << endl;
+			cout << "ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤. (press any key) " << endl;
 			_getch();
 			break;
 		}
@@ -190,12 +190,12 @@ void MemoManager::writeMemo()
 			return;
 		}
 		else {
-			cout << "\n¿Ã¹Ù¸£Áö ¾ÊÀº ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+			cout << "\nì˜¬ë°”ë¥´ì§€ ì•Šì€ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 		}
 	} while (true);
 
-	Memo memo(name, content, tags, power); // »õ·Î¿î ¸Ş¸ğ »ı¼º
-	memoList.push_back(memo); // ¸®½ºÆ® Ãß°¡
+	Memo memo(name, content, tags, power); // ìƒˆë¡œìš´ ë©”ëª¨ ìƒì„±
+	memoList.push_back(memo); // ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
 	saveMemo(memo);
 }
 
@@ -209,7 +209,7 @@ void MemoManager::deleteMemo(string a)
 	}
 	else {
 		a.erase(a.begin() + a.length() - 4, a.end());
-		cout << "¸Ş¸ğ \"" << a << "\"¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù." << endl;
+		cout << "ë©”ëª¨ \"" << a << "\"ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤." << endl;
 	}
 }
 
@@ -230,12 +230,12 @@ vector<string> MemoManager::stringSplit(string t, string Tok)
 	return tags;
 }
 
-bool MemoManager::checkName(string name) // ±èÀÎ¾Ö 1Â÷
+bool MemoManager::checkName(string name) // ê¹€ì¸ì•  1ì°¨
 {
-	if (checkLength(name, 50) == false) { // ÇÔ¼ö·Î º¯°æ
+	if (checkLength(name, 50) == false) { // í•¨ìˆ˜ë¡œ ë³€ê²½
 		return false;
 	}
-	if (findMyChar(name) == false) {//Æ¯Á¤¹®ÀÚ¸¦ Ã£¾ÒÀ» ¶§ÀÇ µ¿ÀÛ
+	if (findMyChar(name) == false) {//íŠ¹ì •ë¬¸ìë¥¼ ì°¾ì•˜ì„ ë•Œì˜ ë™ì‘
 		return false;
 	}
 	return true;
@@ -251,27 +251,27 @@ bool MemoManager::overlapName(string name)
 	return false;
 }
 
-bool MemoManager::checkContent(vector<string> content) // ±èÀÎ¾Ö 1Â÷
+bool MemoManager::checkContent(vector<string> content) // ê¹€ì¸ì•  1ì°¨
 {
 	int size = 0;
 	for (int i = 0; i < content.size(); i++) {
-		if (findMyChar(content.at(i)) == false) {//Æ¯Á¤¹®ÀÚ¸¦ Ã£¾ÒÀ» ¶§ÀÇ µ¿ÀÛ
+		if (findMyChar(content.at(i)) == false) {//íŠ¹ì •ë¬¸ìë¥¼ ì°¾ì•˜ì„ ë•Œì˜ ë™ì‘
 			return false;
 		}
 		size += content.at(i).size();
 	}
 
-	if (size > 4000) { //±æÀÌ ÃÊ°ú ( ¼ıÀÚ´Â º¯°æ )
-		cout << "³»¿ëÀÇ ±æÀÌ´Â 1byte ÀÌ»ó, 4,000byte ÀÌÇÏÀÌ¿©¾ß ÇÕ´Ï´Ù." << endl;
+	if (size > 4000) { //ê¸¸ì´ ì´ˆê³¼ ( ìˆ«ìëŠ” ë³€ê²½ )
+		cout << "ë‚´ìš©ì˜ ê¸¸ì´ëŠ” 1byte ì´ìƒ, 4,000byte ì´í•˜ì´ì—¬ì•¼ í•©ë‹ˆë‹¤." << endl;
 		return false;
 	}
 	return true;
 }
 
-bool MemoManager::checkTags(vector<string> tags) // ±èÀÎ¾Ö 1Â÷
+bool MemoManager::checkTags(vector<string> tags) // ê¹€ì¸ì•  1ì°¨
 {
-	if (tags.size() > 20) { // ÅÂ±× °³¼ö ÃÊ°ú
-		cout << "ÅÂ±×ÀÇ °³¼ö´Â 1°³ ÀÌ»ó, 20°³ ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù" << endl;
+	if (tags.size() > 20) { // íƒœê·¸ ê°œìˆ˜ ì´ˆê³¼
+		cout << "íƒœê·¸ì˜ ê°œìˆ˜ëŠ” 1ê°œ ì´ìƒ, 20ê°œ ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤" << endl;
 		return false;
 	}
 	for (int i = 0; i < tags.size(); i++) {
@@ -288,7 +288,7 @@ bool MemoManager::checkTags(vector<string> tags) // ±èÀÎ¾Ö 1Â÷
 bool MemoManager::findMyChar(string str)
 {
 	if (str.find("-") != string::npos || str.find("+") != string::npos || str.find("/") != string::npos) {
-		cout << "°Ë»ö ±âÈ£°¡ Æ÷ÇÔµÇ¾ú½À´Ï´Ù." << endl;
+		cout << "ê²€ìƒ‰ ê¸°í˜¸ê°€ í¬í•¨ë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 		return false;
 	}
 	return true;
@@ -297,7 +297,7 @@ bool MemoManager::findMyChar(string str)
 bool MemoManager::checkLength(string str, int length)
 {
 	if (str.length() > length) {
-		cout << "±æÀÌ´Â " << length << "byte ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+		cout << "ê¸¸ì´ëŠ” " << length << "byte ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 		return false;
 	}
 	return true;
@@ -324,7 +324,7 @@ bool MemoManager::checkSearchWords(vector<string>& searchWords, vector<string>& 
 			searchWords[i].erase(searchWords[i].begin());
 		}
 		else {
-			bool flag = false; // ½½·¡½Ã ¸¸³µÀ»¶§ false
+			bool flag = false; // ìŠ¬ë˜ì‹œ ë§Œë‚¬ì„ë•Œ false
 			bool isSlash = false;
 			for (int j = 0; j < searchWords[i].length(); j++) {
 				if (searchWords[i][j] == '/') {
@@ -355,8 +355,8 @@ void MemoManager::searchMenu()
 {
 	string menu;
 	do {
-		cout << "1. ÅÂ±×·Î °Ë»ö\n2. ³»¿ëÀ¸·Î °Ë»ö\n3. ÀÌ¸§À¸·Î °Ë»ö\n4. ÅÂ±× + ³»¿ëÀ¸·Î °Ë»ö\n5. ÀÌÀü ¸Ş´º" << endl;
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. íƒœê·¸ë¡œ ê²€ìƒ‰\n2. ë‚´ìš©ìœ¼ë¡œ ê²€ìƒ‰\n3. ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰\n4. íƒœê·¸ + ë‚´ìš©ìœ¼ë¡œ ê²€ìƒ‰\n5. ì´ì „ ë©”ë‰´" << endl;
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
 
 		if (!menu.compare("1")) {
@@ -375,7 +375,7 @@ void MemoManager::searchMenu()
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n" << endl;
 		}
 	} while (true);
 }
@@ -388,19 +388,19 @@ void MemoManager::search_Tags()
 
 
 	while (1) {
-		cout << "°Ë»öÇÒ ÅÂ±×¸¦ ÀÔ·ÂÇÏ¼¼¿ä(+A, -B, C/D) ¢º ";
+		cout << "ê²€ìƒ‰í•  íƒœê·¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”(+A, -B, C/D) â–¶ ";
 		string words;
 		getline(cin, words);
 		searchWords = (stringSplit(words, " "));
 		if (searchWords.size() > 10) {
-			cout << "°Ë»ö¾î´Â 10°³ ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+			cout << "ê²€ìƒ‰ì–´ëŠ” 10ê°œ ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 			searchWords.clear();
 		}
 		else if (checkSearchWords(searchWords, operation, slashword)) {
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ °Ë»ö ±¸¹® ÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ê²€ìƒ‰ êµ¬ë¬¸ ì…ë‹ˆë‹¤.\n" << endl;
 			searchWords.clear();
 		}
 	}
@@ -414,20 +414,20 @@ void MemoManager::search_Content()
 	vector<vector<string>> slashword;
 
 	while (1) {
-		cout << "°Ë»öÇÒ ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä(+A, -B, C/D) ¢º ";
+		cout << "ê²€ìƒ‰í•  ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”(+A, -B, C/D) â–¶ ";
 		string words;
 		getline(cin, words);
 
 		searchWords = stringSplit(words, " ");
 		if (searchWords.size() > 10) {
-			cout << "°Ë»ö¾î´Â 10°³ ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+			cout << "ê²€ìƒ‰ì–´ëŠ” 10ê°œ ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 			searchWords.clear();
 		}
 		else if (checkSearchWords(searchWords, operation, slashword)) {
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ °Ë»ö ±¸¹® ÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ê²€ìƒ‰ êµ¬ë¬¸ ì…ë‹ˆë‹¤.\n" << endl;
 			searchWords.clear();
 		}
 	}
@@ -443,20 +443,20 @@ void MemoManager::search_Name()
 
 	while (1)
 	{
-		cout << "°Ë»öÇÒ ¸Ş¸ğÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä(+A, -B, C/D) ¢º ";
+		cout << "ê²€ìƒ‰í•  ë©”ëª¨ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”(+A, -B, C/D) â–¶ ";
 		string words;
 		getline(cin, words);
 
 		searchWords = stringSplit(words, " ");
 		if (searchWords.size() > 10) {
-			cout << "°Ë»ö¾î´Â 10°³ ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+			cout << "ê²€ìƒ‰ì–´ëŠ” 10ê°œ ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 			searchWords.clear();
 		}
 		else if (checkSearchWords(searchWords, operation, slashword)) {
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ °Ë»ö ±¸¹® ÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ê²€ìƒ‰ êµ¬ë¬¸ ì…ë‹ˆë‹¤.\n" << endl;
 			searchWords.clear();
 		}
 	}
@@ -472,20 +472,20 @@ void MemoManager::search_Tags_Content()
 
 	while (1)
 	{
-		cout << "°Ë»öÇÒ ¸Ş¸ğÀÇ ÅÂ±×¿Í ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä(+A, -B, C/D) ¢º ";
+		cout << "ê²€ìƒ‰í•  ë©”ëª¨ì˜ íƒœê·¸ì™€ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”(+A, -B, C/D) â–¶ ";
 		string words;
 		getline(cin, words);
 
 		searchWords = stringSplit(words, " ");
 		if (searchWords.size() > 10) {
-			cout << "°Ë»ö¾î´Â 10°³ ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+			cout << "ê²€ìƒ‰ì–´ëŠ” 10ê°œ ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 			searchWords.clear();
 		}
 		else if (checkSearchWords(searchWords, operation, slashword)) {
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ °Ë»ö ±¸¹® ÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ê²€ìƒ‰ êµ¬ë¬¸ ì…ë‹ˆë‹¤.\n" << endl;
 			searchWords.clear();
 		}
 	}
@@ -496,7 +496,7 @@ void MemoManager::search_Tags_Content()
 void MemoManager::searchMemo(vector<string> searchWords, int menu_flag, vector<string> operation, vector<vector<string>> slashword)
 {
 	vector<int> tempMemoNumList;
-	//ÀÔ·ÂµÈ °ªÀ» ÀüÃ¼ ¸Ş¸ğ ¸®½ºÆ®¿¡¼­ °Ë»ö
+	//ì…ë ¥ëœ ê°’ì„ ì „ì²´ ë©”ëª¨ ë¦¬ìŠ¤íŠ¸ì—ì„œ ê²€ìƒ‰
 	// + : and , - : not , / : or , " ": and
 	for (int i = 0; i < memoList.size(); i++) {
 		if (searching(menu_flag, i, searchWords, operation, slashword)) {
@@ -505,26 +505,26 @@ void MemoManager::searchMemo(vector<string> searchWords, int menu_flag, vector<s
 	}
 
 	if (!tempMemoNumList.empty()) {
-		showMemoList(tempMemoNumList);      //°Ë»öÇÑ ¸Ş¸ğ ¸®½ºÆ® Ãâ·Â
+		showMemoList(tempMemoNumList);      //ê²€ìƒ‰í•œ ë©”ëª¨ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 		tempMemoNumList.clear();
 	}
 	else {
-		cout << "°Ë»öµÈ ¸Ş¸ğ°¡ ¾ø½À´Ï´Ù." << endl;
+		cout << "ê²€ìƒ‰ëœ ë©”ëª¨ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
 	}
 }
 
 bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWords, vector<string>& operation, vector<vector<string>>& slashword) {
 	string str = "", str2 = "";
-	if (menu_flag == 4) { //ÅÂ±×+³»¿ë °Ë»ö
+	if (menu_flag == 4) { //íƒœê·¸+ë‚´ìš© ê²€ìƒ‰
 		for (int j = 0; j < memoList[index].getContent().size(); j++)
 			str.append(memoList[index].getContent().at(j));
 	}
-	else if (menu_flag == 2) { // ³»¿ë °Ë»ö
+	else if (menu_flag == 2) { // ë‚´ìš© ê²€ìƒ‰
 		for (int i = 0; i < memoList[index].getContent().size(); i++) {
 			str.append(memoList[index].getContent().at(i));
 		}
 	}
-	else if (menu_flag == 3) { // ÀÌ¸§ °Ë»ö
+	else if (menu_flag == 3) { // ì´ë¦„ ê²€ìƒ‰
 		str = memoList[index].getName();
 	}
 
@@ -539,23 +539,23 @@ bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWord
 				}
 			}
 			if (menu_flag != 1 && flag == false) {
-				//¸Ş¸ğÀÇ ÅÂ±× Áß °Ë»öÇÑ ´Ü¾î¿Í °°Àº °ÍÀÌ ÀÖ´Ù¸é flag = true
+				//ë©”ëª¨ì˜ íƒœê·¸ ì¤‘ ê²€ìƒ‰í•œ ë‹¨ì–´ì™€ ê°™ì€ ê²ƒì´ ìˆë‹¤ë©´ flag = true
 				flag = (str.find(searchWords[i]) != string::npos);
 			}
-			//operationÀÌ + ¶ó¸é true
+			//operationì´ + ë¼ë©´ true
 			bool oper = operation[i] == "+" ? true : false;
-			//°Ë»ö Á¶°Ç¿¡ ¸ÂÁö ¾ÊÀ¸¸é ÇÔ¼ö Á¾·á
+			//ê²€ìƒ‰ ì¡°ê±´ì— ë§ì§€ ì•Šìœ¼ë©´ í•¨ìˆ˜ ì¢…ë£Œ
 			if (flag != oper) return false;
 		}
 	}
-	//½½·¡½¬·Î ³ª´©¾îÁø ´Ü¾î´Â µû·Î °Ë»ö
-	//½½·¡½¬·Î ³ª´©¾îÁø ´Ü¾î´Â µû·Î °Ë»ö
+
+	//ìŠ¬ë˜ì‰¬ë¡œ ë‚˜ëˆ„ì–´ì§„ ë‹¨ì–´ëŠ” ë”°ë¡œ ê²€ìƒ‰
 	if (!slashword.empty()) {
 		for (int i = 0; i < slashword.size(); i++) {
 			int count = 0;
 			for (int j = 0; j < slashword[i].size(); j++) {
-				if (menu_flag == 4 || menu_flag == 1) {// 1¹ø, 4¹ø
-					if (menu_flag == 4) {// 4¹øÀÏ¶§ Ãß°¡Á¶°Ç
+				if (menu_flag == 4 || menu_flag == 1) {// 1ë²ˆ, 4ë²ˆ
+					if (menu_flag == 4) {// 4ë²ˆì¼ë•Œ ì¶”ê°€ì¡°ê±´
 						if (str.find(slashword[i][j]) != string::npos)
 							count++;
 					}
@@ -568,16 +568,41 @@ bool MemoManager::searching(int menu_flag, int index, vector<string>& searchWord
 				else if (str.find(slashword[i][j]) != string::npos)
 					count++;
 			}
-			if (count == 0)//°Ë»öÇØ¾ß ÇÏ´Â ´Ü¾î¸¦ ÇÑ°³µµ Ã£Áö ¸øÇßÀ» ¶§´Â false ¹İÈ¯
+			if (count == 0)//ê²€ìƒ‰í•´ì•¼ í•˜ëŠ” ë‹¨ì–´ë¥¼ í•œê°œë„ ì°¾ì§€ ëª»í–ˆì„ ë•ŒëŠ” false ë°˜í™˜
 				return false;
 		}
 	}
 	return true;
 }
 
+
+//ìœ ì €ì™€ onwerì˜ ê´€ê³„ íŒë‹¨ , ìœ ì €=ownergroup(1), user!=ownergroup(2)
+int MemoManager::checkCorrelation(string userID, string groupName)
+{
+	////userì™€ ownerê°€ ê°™ìœ¼ë©´
+	//if (userID.compare()) { return 0; }
+
+	////userê°€ ownerëŠ” ì•„ë‹ˆì§€ë§Œ ownerì™€ ê°™ì€ ê·¸ë£¹ì¼ë•Œ
+	//else if () { return 1; }
+
+	////userëŠ” ownerê°€ ì•„ë‹ˆê³  ownerì™€ ë‹¤ë¥¸ ê·¸ë£¹ì¼ë•Œ
+	//else { return 2; }
+}
+
+//ê²€ìƒ‰í•˜ë ¤ëŠ” ë©”ëª¨ì— ê¶Œí•œì´ ìˆëŠ”ì§€ ê²€ì‚¬
+bool MemoManager::checkPermissiones(string userID, string permission)
+{
+	if (permission.compare("000000")) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 void MemoManager::showMemoList(vector<int> tempMemoNumList)
 {
-	//°Ë»öÇÑ ¸Ş¸ğ ¸®½ºÆ® Ãâ·Â
+	//ê²€ìƒ‰í•œ ë©”ëª¨ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	for (int i = 0; i < tempMemoNumList.size(); i++) {
 		cout << i + 1 << ") ";
 		memoList[tempMemoNumList[i]].showMemoSimple();
@@ -585,76 +610,233 @@ void MemoManager::showMemoList(vector<int> tempMemoNumList)
 
 	string menu;
 	do {
-		cout << "1. Á¤·Ä\n2. ¸Ş¸ğ È®ÀÎ\n3. ÀÌÀü ¸Ş´º" << endl;
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. ì •ë ¬\n2. ë©”ëª¨ í™•ì¸\n3. ì´ì „ ë©”ë‰´" << endl;
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
 		if (!menu.compare("1")) {
 			ascend(tempMemoNumList);
 		}
 		else if (!menu.compare("2")) {
-			//¸Ş¸ğ È®ÀÎ
+			//ë©”ëª¨ í™•ì¸
 			string select;
 			int num;
 			do {
-				cout << "¸Ş¸ğ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+				cout << "ë©”ëª¨ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 				getline(cin, select);
 				stringstream ss(select);
 				if ((ss >> num).fail()) {
-					cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n" << endl;
+					cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n" << endl;
 					continue;
 				}
 				else
 					break;
 			} while (true);
-			showSearchedMemo(tempMemoNumList, num);
+
+			string userID;
+			string permission = "111111";
+			string groupName;
+
+			//ìœ ì €ì™€ ownerì™€ ê´€ê³„ë¥¼ íŒë‹¨í•˜ëŠ” í•¨ìˆ˜
+			int j = 0;
+			switch (checkCorrelation(userID, groupName))
+			{
+			case 0:
+				break;
+			case 1:
+				j = 0;
+				break;
+			case 2:
+				j = 1;
+				break;
+			default:
+				break;
+			}
+
+			//ë§Œì•½ ê¶Œí•œì´ í•œê°œë„ ì—†ë‹¤ë©´
+			if (!checkPermissiones(userID, permission)) {
+				cout << "ë©”ëª¨ì— ì ‘ê·¼ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤." << endl;
+				continue;
+			}
+			else {
+				permissionMenu(permission, j, tempMemoNumList, num);
+			}
+
 		}
 		else if (!menu.compare("3")) {
 			break;
 		}
 		else {
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n" << endl;
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n" << endl;
 		}
 	} while (!menu.compare("1") || menu.compare("2"));
 }
 
 
-//À¯Àú¿Í onwerÀÇ °ü°è ÆÇ´Ü , À¯Àú=ownergroup(1), user!=ownergroup(2)
-int MemoManager::checkCorrelation(string userID, string userID2) //userID´Â ÀÛ¼ºÀÚ, userID2´Â ·Î±×ÀÎ ÇÑ À¯Àú
+
+//ìœ ì €ì™€ onwerì˜ ê´€ê³„ íŒë‹¨ , ìœ ì €=ownergroup(1), user!=ownergroup(2)
+int MemoManager::checkCorrelation(string userID, string userID2) //userIDëŠ” ì‘ì„±ì, userID2ëŠ” ë¡œê·¸ì¸ í•œ ìœ ì €
 {
-	//user¿Í owner°¡ °°À¸¸é
+	//userì™€ ownerê°€ ê°™ìœ¼ë©´
 	if (!userID.compare(userID2)) { return 0; }
 
-	//user°¡ owner´Â ¾Æ´ÏÁö¸¸ owner¿Í °°Àº ±×·ìÀÏ¶§
+	//userê°€ ownerëŠ” ì•„ë‹ˆì§€ë§Œ ownerì™€ ê°™ì€ ê·¸ë£¹ì¼ë•Œ
 	else if (search_group(userID, userID2)) { return 1; }
 
-	//user´Â owner°¡ ¾Æ´Ï°í owner¿Í ´Ù¸¥ ±×·ìÀÏ¶§
+	//userëŠ” ownerê°€ ì•„ë‹ˆê³  ownerì™€ ë‹¤ë¥¸ ê·¸ë£¹ì¼ë•Œ
 	else { return 2; }
+}
+
+void MemoManager::permissionMenu(string permission, int j, vector<int> tempMemoNumList, int num) {
+
+	//ê°™ì€ ê·¸ë£¹ì¼ë•Œ permissionì—ì„œ ì•ì— 3ê°œë¥¼ ëŠì–´ì„œ t/f êµ¬ë¶„
+	//ë‹¤ë¥¸ ê·¸ë£¹ì¼ë•Œ ë’¤ì— 3ê°œë¥¼ ëŠì–´ì„œ t/fêµ¬ë¶„
+	string select;
+	vector<int> index;
+	int count = 0;  bool flag = false;
+	for (int i = (0 + (j * 3)); i < (3 + (j * 3)); i++) {
+		int t = permission.at(i) - '0';
+		if (t) {
+			if (i == 0 || i == 3) {
+				cout << (++count) + ". ë©”ëª¨ ì½ê¸°" << endl;
+				index.push_back(1);
+				flag = true;
+			}
+			else if (i == 1 || i == 4) {
+				cout << (++count) + ". ë©”ëª¨ ìˆ˜ì •" << endl;
+				index.push_back(2);
+			}
+			else {
+				cout << (++count) + ". ë©”ëª¨ ê¶Œí•œ ë³€ê²½" << endl;
+				index.push_back(3);
+			}
+		}
+	}
+	getline(cin, select);
+
+
+	if (!select.compare("1")) {
+		switch (index[0])
+		{
+		case 1:
+			//ë©”ëª¨ ì¶œë ¥
+			showSearchedMemo(tempMemoNumList, num);
+			break;
+		case 2:
+			//ë©”ëª¨ ìˆ˜ì •
+			modifyMenu(flag, tempMemoNumList, num);
+			break;
+		case 3:
+			//ë©”ëª¨ ê¶Œí•œ ë³€ê²½
+			modifyPermission();
+			break;
+		default:
+			break;
+		}
+	}
+	else if (!select.compare("2")) {
+		switch (index[1])
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+	}
+	else if (!select.compare("3")) {
+		switch (index[2])
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void MemoManager::modifyMenu(bool flag, vector<int> tempMemoNumList, int num) {
+
+	//ì½ê¸° ê¶Œí•œì´ ìˆìœ¼ë©´ ë©”ëª¨ ì¶œë ¥ í›„ ë©”ë‰´ ì¶œë ¥
+	if (flag) {
+		showSearchedMemo(tempMemoNumList, num);
+	}
+
+	do {
+		string select;
+		cout << "1. ë©”ëª¨ ìˆ˜ì •\n2. ë©”ëª¨ ì‚­ì œ" << endl;
+		getline(cin, select);
+
+		//ë©”ëª¨ ìˆ˜ì •
+		if (!select.compare("1")) {
+			break;
+		}
+		//ë©”ëª¨ ì‚­ì œ
+		else if (!select.compare("2")) {
+			string select2;
+			do {
+				cout << "ë©”ëª¨ë¥¼ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ? ( y / n ) ";
+				getline(cin, select2);
+				if (!select2.compare("y")) {
+					deleteMemo(memoList[tempMemoNumList[num - 1]].getName());
+					memoList.erase(memoList.begin() + (num - 1));
+					break;
+				}
+				else if ((!select2.compare("n"))) {
+					break;
+				}
+				else {
+					cout << "ì˜ëª»ëœ ì…ë ¥ê°’ì…ë‹ˆë‹¤." << endl;
+				}
+			} while (true);
+		}
+		else {
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+			continue;
+		}
+	} while (true);
+	
+
+}
+
+//ê¶Œí•œ ë³€ê²½ í•¨ìˆ˜
+void MemoManager::modifyPermission() {
+	do {
+		cout << "ë³€ê²½í•  ê¶Œí•œì„ ì…ë ¥í•´ì£¼ì„¸ìš” â–¶ ";
+		string permission;
+		getline(cin, permission);
+		if (permission.length() == 6) {
+			for (int i = 0; i < 6; i++) {
+				if (permission[i] != '1' && permission[i] != '0') {
+					cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+					continue;
+				}
+			}
+			break;
+		}
+		else {
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
+			continue;
+		}
+	} while (true);
+	cout << "ê¶Œí•œì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
+
 }
 
 void MemoManager::showSearchedMemo(vector<int> tempMemoNumList, int position)
 {
-	position--;      //¼±ÅÃµÈ °ª¿¡¼­ -1 ÇØ¼­ ´Ù½Ã ÀÎµ¦½º·Î º¯°æ
+	position--;      //ì„ íƒëœ ê°’ì—ì„œ -1 í•´ì„œ ë‹¤ì‹œ ì¸ë±ìŠ¤ë¡œ ë³€ê²½
 	if (position >= tempMemoNumList.size() || position < 0) {
-		cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n" << endl;
+		cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n" << endl;
 	}
 	else {
 		memoList[tempMemoNumList[position]].showMemo();
-		string select;
-		do {
-			cout << "¸Ş¸ğ¸¦ »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î? ( y / n ) ";
-			getline(cin, select);
-			if (!select.compare("y")) {
-				deleteMemo(memoList[tempMemoNumList[position]].getName());
-				memoList.erase(memoList.begin() + position);
-				break;
-			}
-			else if ((!select.compare("n"))) {
-				break;
-			}
-			else {
-				cout << "Àß¸øµÈ ÀÔ·Â°ªÀÔ´Ï´Ù." << endl;
-			}
-		} while (true);
 	}
 }
 
@@ -668,8 +850,8 @@ void MemoManager::ascend(vector<int>& list)
 
 	do {
 
-		cout << "1. Á¦¸ñ ¿À¸§Â÷¼ø\n2. Á¦¸ñ ³»¸²Â÷¼ø\n3. ³¯Â¥ ¿À¸§Â÷¼ø\n4. ³¯Â¥ ³»¸²Â÷¼ø" << endl;
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. ì œëª© ì˜¤ë¦„ì°¨ìˆœ\n2. ì œëª© ë‚´ë¦¼ì°¨ìˆœ\n3. ë‚ ì§œ ì˜¤ë¦„ì°¨ìˆœ\n4. ë‚ ì§œ ë‚´ë¦¼ì°¨ìˆœ" << endl;
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
 		if (!menu.compare("1")) {
 			name_ascend(list);
@@ -704,7 +886,7 @@ void MemoManager::ascend(vector<int>& list)
 			break;
 		}
 		else {
-			cout << "Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù." << endl;
+			cout << "ì˜ëª» ì…ë ¥í–ˆìŠµë‹ˆë‹¤." << endl;
 		}
 	} while (true);
 }
@@ -803,31 +985,31 @@ void MemoManager::loginMenu()
 	for (int i = 0; i < groupList.size(); i++) {
 		cout << groupList.at(i).getName() << endl;
 		for (int j = 0; j < groupList.at(i).getChild().size(); j++) {
-			cout << "±×·ì" << j + 1 << " " << groupList.at(i).getChild().at(j) << endl;
+			cout << "ê·¸ë£¹" << j + 1 << " " << groupList.at(i).getChild().at(j) << endl;
 		}
 	}
 
 	string menu;
 	do
 	{
-		cout << "1. ·Î±×ÀÎ\n2. È¸¿ø°¡ÀÔ\n3. Á¾·á\n";
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. ë¡œê·¸ì¸\n2. íšŒì›ê°€ì…\n3. ì¢…ë£Œ\n";
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
-		if (menu.compare("1") == 0) { //·Î±×ÀÎ
-			
+		if (menu.compare("1") == 0) { //ë¡œê·¸ì¸
+
 		}
-		else if (menu.compare("2") == 0) { //È¸¿ø°¡ÀÔ
+		else if (menu.compare("2") == 0) { //íšŒì›ê°€ì…
 			regi();
 		}
 		else if (menu.compare("3") == 0) {
-			cout << "ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù." << endl;
+			cout << "í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤." << endl;
 			break;
 		}
 		else {
-			cout << "¿Ã¹Ù¸¥ ¸Ş´º ¹øÈ£°¡ ¾Æ´Õ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä. (press any key) " << endl;
+			cout << "ì˜¬ë°”ë¥¸ ë©”ë‰´ ë²ˆí˜¸ê°€ ì•„ë‹™ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”. (press any key) " << endl;
 			_getch();
 		}
-		
+
 	} while (true);
 }
 
@@ -839,21 +1021,21 @@ void MemoManager::regi()
 
 	do
 	{
-		cout << "»ç¿ëÇÒ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º";
+		cout << "ì‚¬ìš©í•  ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶";
 		getline(cin, id);
 		bool check = true;
 		if (id.size() > 20 || id.size() < 1) {
-			cout << "1byte ÀÌ»ó 20byteÀÌÇÏ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+			cout << "1byte ì´ìƒ 20byteì´í•˜ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 			continue;
 		}
 		if (id.find(" ") != -1) {
-			cout << "°ø¹éÀº ÀÔ·Â ¹ŞÀ» ¼ö ¾ø½À´Ï´Ù." << endl;
+			cout << "ê³µë°±ì€ ì…ë ¥ ë°›ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << endl;
 			continue;
 		}
 		for (int i = 0; i < id.length(); i++) {
 			if ((id.at(i) >= 'a' && id.at(i) <= 'z') || (id.at(i) >= 'A' && id.at(i) <= 'Z') || (id.at(i) >= '0' && id.at(i) <= '9'));
 			else {
-				cout << "¿µ¾î ¶Ç´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+				cout << "ì˜ì–´ ë˜ëŠ” ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 				check = false;
 				break;
 			}
@@ -863,33 +1045,33 @@ void MemoManager::regi()
 			continue;
 		for (int i = 0; i < userList.size(); i++) {
 			if (id.compare(userList.at(i).getId()) == 0) {
-				cout << "¾ÆÀÌµğ°¡ Áßº¹µË´Ï´Ù. ´Ù½ÃÀÔ·ÂÇÏ¼¼¿ä" << endl;
+				cout << "ì•„ì´ë””ê°€ ì¤‘ë³µë©ë‹ˆë‹¤. ë‹¤ì‹œì…ë ¥í•˜ì„¸ìš”" << endl;
 				check = false;
 				break;
 			}
 		}
 		if (check)
 			break;
-		
+
 	} while (true);
-	
+
 	do
 	{
-		cout << "»ç¿ëÇÒ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º";
+		cout << "ì‚¬ìš©í•  ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶";
 		getline(cin, pass);
 		bool check = true;
 		if (pass.size() > 20 || pass.size() < 1) {
-			cout << "1byte ÀÌ»ó 20byteÀÌÇÏ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä" << endl;
+			cout << "1byte ì´ìƒ 20byteì´í•˜ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”" << endl;
 			continue;
 		}
 		if (pass.find(" ") != -1) {
-			cout << "°ø¹éÀº ÀÔ·Â ¹ŞÀ» ¼ö ¾ø½À´Ï´Ù." << endl;
+			cout << "ê³µë°±ì€ ì…ë ¥ ë°›ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << endl;
 			continue;
 		}
 		for (int i = 0; i < pass.length(); i++) {
 			if ((pass.at(i) >= 'a' && pass.at(i) <= 'z') || (pass.at(i) >= 'A' && pass.at(i) <= 'Z') || (pass.at(i) >= '0' && pass.at(i) <= '9'));
 			else {
-				cout << "¿µ¾î ¶Ç´Â ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä." << endl;
+				cout << "ì˜ì–´ ë˜ëŠ” ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”." << endl;
 				check = false;
 				break;
 			}
@@ -909,15 +1091,15 @@ void MemoManager::regi()
 
 void MemoManager::change_group()
 {
-	cout << "¢º ±×·ì º¯°æ ¢¸\n" << endl;
+	cout << "â–¶ ê·¸ë£¹ ë³€ê²½ â—€\n" << endl;
 	vector<string> input;
 	do {
-		cout << "À¯ÀúÀÇ ¾ÆÀÌµğ¿Í ±× À¯Àú°¡ ¼ÓÇÒ ÃÖÇÏÀ§ ±×·ìÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä ¡å" << endl;
+		cout << "ìœ ì €ì˜ ì•„ì´ë””ì™€ ê·¸ ìœ ì €ê°€ ì†í•  ìµœí•˜ìœ„ ê·¸ë£¹ì„ ì…ë ¥í•´ì£¼ì„¸ìš” â–¼" << endl;
 		string group;
 		getline(cin, group);
-		input = stringSplit(group, " "); // ¹®ÀÚ¿­ ºĞ¸®
+		input = stringSplit(group, " "); // ë¬¸ìì—´ ë¶„ë¦¬
 		if (input.size() != 2) {
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
 			continue;
 		}
 		int cnt = 0;
@@ -926,7 +1108,7 @@ void MemoManager::change_group()
 				cnt++;
 		}
 		if (!cnt) {
-			cout << "Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù." << endl;
+			cout << "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤." << endl;
 			continue;
 		}
 		cnt = 0;
@@ -935,7 +1117,7 @@ void MemoManager::change_group()
 				cnt++;
 		}
 		if (!cnt) {
-			cout << "Á¸ÀçÇÏÁö ¾Ê´Â ±×·ìÀÔ´Ï´Ù." << endl;
+			cout << "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê·¸ë£¹ì…ë‹ˆë‹¤." << endl;
 			continue;
 		}
 	} while (true);
@@ -1011,8 +1193,8 @@ bool MemoManager::checkPower(vector<string> powers, string& power)
 void MemoManager::root_menu() {
 	string menu;
 	do {
-		cout << "1. ±×·ì »ı¼º\n2. À¯ÀúÀÇ ±×·ì º¯°æ\n3. ·Î±×¾Æ¿ô" << endl;
-		cout << "¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä ¢º ";
+		cout << "1. ê·¸ë£¹ ìƒì„±\n2. ìœ ì €ì˜ ê·¸ë£¹ ë³€ê²½\n3. ë¡œê·¸ì•„ì›ƒ" << endl;
+		cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” â–¶ ";
 		getline(cin, menu);
 		if (!menu.compare("1")) {
 			make_group();
@@ -1024,26 +1206,26 @@ void MemoManager::root_menu() {
 			return;
 		}
 		else {
-			cout << "Àß¸ø ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù." << endl;
+			cout << "ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤." << endl;
 		}
 	} while (menu.compare("3"));
 
 }
 
 void MemoManager::make_group() {
-	cout << "¢º ±×·ì »ı¼º ¢¸\n" << endl;
+	cout << "â–¶ ê·¸ë£¹ ìƒì„± â—€\n" << endl;
 	vector<string> input;
 	do {
-		cout << "»ı¼ºÇÒ ±×·ìÀÇ ÀÌ¸§°ú ±×·ìÀÇ ºÎ¸ğ ±×·ìÀ» ÀÔ·ÂÇÏ¼¼¿ä ¡å" << endl;
+		cout << "ìƒì„±í•  ê·¸ë£¹ì˜ ì´ë¦„ê³¼ ê·¸ë£¹ì˜ ë¶€ëª¨ ê·¸ë£¹ì„ ì…ë ¥í•˜ì„¸ìš” â–¼" << endl;
 		string group;
 		getline(cin, group);
-		input = stringSplit(group, " "); // ¹®ÀÚ¿­ ºĞ¸®
+		input = stringSplit(group, " "); // ë¬¸ìì—´ ë¶„ë¦¬
 		if (input.size() != 2) {
-			cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
+			cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤." << endl;
 			continue;
 		}
 		else if (input.at(0).length() > 20) {
-			cout << "±×·ìÀÇ ±æÀÌ´Â 20byte ÀÌÇÏÀÌ¾î¾ß ÇÕ´Ï´Ù." << endl;
+			cout << "ê·¸ë£¹ì˜ ê¸¸ì´ëŠ” 20byte ì´í•˜ì´ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 			continue;
 		}
 		else {
@@ -1055,7 +1237,7 @@ void MemoManager::make_group() {
 }
 
 void MemoManager::loadUser() {
-	//ÇöÀç°æ·Î
+	//í˜„ì¬ê²½ë¡œ
 	char path[129] = { 0 };
 	if (GetCurrentDirectoryA(128, path) > 0) {
 		//cout << string(path) << endl;
@@ -1077,16 +1259,16 @@ void MemoManager::loadUser() {
 			string line;
 			getline(rfile, line);
 			name = line;
-			cout << "À¯ÀúÀÌ¸§ : " << name << endl;
+			cout << "ìœ ì €ì´ë¦„ : " << name << endl;
 
 			getline(rfile, line);
 			pw = line;
-			cout << "ºñ¹Ğ¹øÈ£ : " << pw << endl;
+			cout << "ë¹„ë°€ë²ˆí˜¸ : " << pw << endl;
 
 			getline(rfile, line);
 			group = line;
-			//±×·ì °´Ã¼»ı¼º & push
-			cout << "±×·ìÀÌ¸§ : " << group << endl;
+			//ê·¸ë£¹ ê°ì²´ìƒì„± & push
+			cout << "ê·¸ë£¹ì´ë¦„ : " << group << endl;
 			User u(name, pw, group);
 			userList.push_back(u);
 		}
@@ -1094,7 +1276,7 @@ void MemoManager::loadUser() {
 	}
 }
 void MemoManager::loadGroup() {
-	//ÇöÀç°æ·Î
+	//í˜„ì¬ê²½ë¡œ
 	char path[129] = { 0 };
 	if (GetCurrentDirectoryA(128, path) > 0) {
 		//cout << string(path) << endl;
@@ -1114,7 +1296,7 @@ void MemoManager::loadGroup() {
 			string line;
 			getline(rfile, line);
 			name = line;
-			cout << "±×·ìÀÌ¸§ : " << name << endl;
+			cout << "ê·¸ë£¹ì´ë¦„ : " << name << endl;
 
 			//childGroup
 			getline(rfile, line);
@@ -1134,9 +1316,9 @@ void MemoManager::login()
 	system("cls");
 	string id, pass;
 
-	cout << "¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä ¢º " << endl;
+	cout << "ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” â–¶ " << endl;
 	getline(cin, id);
 
-	cout << "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä ¢º " << endl;
+	cout << "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” â–¶ " << endl;
 	getline(cin, pass);
 }
